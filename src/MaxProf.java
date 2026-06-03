@@ -10,6 +10,18 @@ public class MaxProf {
         // Uses a single pass and keeps track of the lowest
         // price seen so far to calculate profit dynamically.
         // ------------------------------------------
+        Integer maxProfit = 0;
+        Integer minPrice = Integer.MAX_VALUE;
+
+        for( int price : prices ){
+            if( price < minPrice ) {
+                minPrice = price;
+            }
+            if( (price - minPrice) > maxProfit){
+                maxProfit = price - minPrice;
+            }
+        }
+        return maxProfit;
     }
 
 
