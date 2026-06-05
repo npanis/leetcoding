@@ -11,16 +11,30 @@ public class Anagram {
         // Use HashMap with get() and null checks.
         // Do not use any sort methods.
         // ----------------------------------------
-        // Anagram should have the same number of letters.
-        // 1. Compare the letters and pop the other string. Both should be done. Both should be exhausted.
-
-        char[] string1Array = string1.toCharArray();
-        char[] string2Array = string2.toCharArray();
+        // Anagram should have the same number of letters, length and number of frequencies
+        // Create hashmap count the number of frequencies in string 1
+        HashMap<Character, Integer> mapString1 = new HashMap<>();
         if(string1.length() != string2.length()) return false;
-        Arrays.sort(string1Array);
-        Arrays.sort(string2Array);
 
-        return Arrays.equals(string1Array, string2Array);
+        for(char s : string1.toCharArray()) {
+            if(!mapString1.containsKey(s)){
+                mapString1.put(s, 1);
+            }
+            else mapString1.put(s, mapString1.get(s) + 1);
+        }
+        // Subtract matches on String2
+        for (char t : string2.toCharArray()){
+            if(mapString1.containsKey(t)) {
+                mapString1.put(t, mapString1.get(t) - 1);
+            }
+            else return false;
+        }
+
+        for ( int value : mapString1.values()) {
+            if (value != 0) return false;
+        }
+
+        return true;
 
     }
 
